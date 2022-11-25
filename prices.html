@@ -60,7 +60,7 @@
             const store_id = url.searchParams.get("store_id");
             const store_name = url.searchParams.get("store_name");
 
-            const data_url = 'https://olivierh.github.io/israel-prices-data/';
+            const data_url = 'https://oracle.hofman.quest/files/';
             $.get(data_url + 'prices/' + chain_id + "_" + store_id + ".csv").then((stores) => {
                 showPrices(stores, chain_id, chain_name, subchain_id, subchain_name, store_id, store_name);
             });
