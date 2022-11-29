@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+<head dir="rtl">
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+    <!-- Used for CSV parsing-->
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+
+    <script src="fast-filter/filter-table.min.js"></script>
+
+    <link rel="stylesheet" href="https://raw.githack.com/waldyrious/downstyler/master/downstyler.css" />
+
+    <style>
+        #page {
+            direction: rtl;
+        }
+
+        h1,
+        h3 {
+            text-align: center;
+        }
+
+        tr,
+        td,
+        th {
+            text-align: start;
+        }
+    </style>
+
+
+    <script>
+        function showPrices(prices_csv, chain_id, chain_name, subchain_id, subchain_name, store_id, store_name) {
+            const prices = d3.csvParse(prices_csv);
+            $("#title").text(store_name + " - " + subchain_name);
+            $("#subtitle").text(" (של רשת " + chain_name + ")");
+            prices.sort((a, b) => {
+                return a.name < b.name ? -1 : (a.name > b.name ? 1 : 0);
+            });
+            let table = "<table id='data-table'><tr><th>שם</th><th>מחיר</th><th>חברה</th><th>מדינה</th></tr>";
+            for (const price of prices) {
+                table += "<tr class='data-row'><td>" + price.name + "</td><td>" + price.price + "</td><td>" + price.manufacturer_name + "</td><td>" + price.manufacture_country + "</td></tr>";
+            }
+            table += "<table>";
+            $("#content").append(table);
+            $('#data-table').filterTable('#search');
+            $("#page").show();
+
+        }
+        $(document).ready(() => {
+
+            const data_url = 'https://oracle.hofman.quest/files/';
+            $.get(data_url + 'prices/' + chain_id + "_" + store_id + ".csv").then((stores) => {
+                showPrices(stores, chain_id, chain_name, subchain_id, subchain_name, store_id, store_name);
+            });
+        });
+
+
+    </script>
+</head>
+
+<body>
+    <div id="page" style="display: none;">
+        <h1 id="title"></h1>
+        <h3 id="subtitle"></h3>
+        <div id="search_container">
+            <input type="text" id="search" placeholder="חפש..">
+        </div>
+        <div id="content">
+        </div>
+    </div>
+</body>
+
+</html>
