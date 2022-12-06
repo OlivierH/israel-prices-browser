@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+
+<head dir="rtl">
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"
+        integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+    <!-- Used for CSV parsing-->
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+
+    <script src="fast-filter/filter-table.min.js"></script>
+
+    <link rel="stylesheet" href="https://raw.githack.com/waldyrious/downstyler/master/downstyler.css" />
+    <link rel="stylesheet" href="style.css" />
+
+
+    <script>
+        function showProduct(product) {
+            console.log(product);
+            $("#title").append(product.item_name);
+            // $('#data-table').filterTable('#search');
+            $("#page").show();
+
+        }
+        $(document).ready(() => {
+            const query = window.location.href;
+            var url = new URL(query);
+            const chain_id = url.searchParams.get("chain_id");
+            const item_code = url.searchParams.get("item_code");
+
+            filename = item_code;
+            if (chain_id) {
+                filename += "_" + item_code;
+            }
+
+            const data_url = 'https://oracle.hofman.quest/files/';
+            $.get(data_url + 'products/' + filename + ".json").then((product) => {
+                showProduct(product);
+            });
+        });
+
+
+    </script>
+</head>
+
+<body>
+    <h1 id="title"></h1>
+
+    <div id="page" style="display: none;">
+        <div id="content">
+        </div>
+    </div>
+</body>
+
+</html>

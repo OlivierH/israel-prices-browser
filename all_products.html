@@ -13,24 +13,7 @@
     <script src="fast-filter/filter-table.min.js"></script>
 
     <link rel="stylesheet" href="https://raw.githack.com/waldyrious/downstyler/master/downstyler.css" />
-
-    <style>
-        #page {
-            direction: rtl;
-        }
-
-        h1,
-        h3 {
-            text-align: center;
-        }
-
-        tr,
-        td,
-        th {
-            text-align: start;
-        }
-    </style>
-
+    <link rel="stylesheet" href="style.css" />
 
     <script>
         function showProducts(products_csv) {
@@ -40,7 +23,8 @@
             });
             let table = "<table id='data-table'><tr><th>שם</th><th>חברה</th><th>מדינה</th></tr>";
             for (const product of products) {
-                table += "<tr class='data-row'><td>" + product.name + "</td><td>" + product.manufacturer_name + "</td><td>" + product.manufacture_country + "</td></tr>";
+                const product_url = "product.html?item_code=" + product.item_code;
+                table += "<tr class='data-row' onclick='window.location=\"" + product_url + "\"'><td>" + product.name + "</td><td>" + product.manufacturer_name + "</td><td>" + product.manufacture_country + "</td></tr>";
             }
             table += "<table>";
             $("#content").append(table);

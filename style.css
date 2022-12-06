@@ -1,0 +1,22 @@
+#page {
+    direction: rtl;
+}
+
+h1,
+h3 {
+    text-align: center;
+}
+
+tr,
+td,
+th {
+    text-align: start;
+}
+
+.data-row {
+    cursor: pointer;
+}
+
+.data-row:hover {
+    background-color: lightgray;
+}

@@ -42,7 +42,11 @@
             });
             let table = "<table id='data-table'><tr><th>שם</th><th>מחיר</th><th>חברה</th><th>מדינה</th></tr>";
             for (const price of prices) {
-                table += "<tr class='data-row'><td>" + price.name + "</td><td>" + price.price + "</td><td>" + price.manufacturer_name + "</td><td>" + price.manufacture_country + "</td></tr>";
+                let product_url = "product.html?item_code=" + price.code;
+                if (price.internal_code == "true") {
+                    product_url += "_" + chain_id;
+                }
+                table += "<tr class='data-row' onclick='window.location=\"" + product_url + "\"'><td>" + price.name + "</td><td>" + price.price + "</td><td>" + price.manufacturer_name + "</td><td>" + price.manufacture_country + "</td></tr>";
             }
             table += "<table>";
             $("#content").append(table);
