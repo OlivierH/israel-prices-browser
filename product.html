@@ -20,6 +20,8 @@
         function showProduct(product) {
             console.log(product);
             $("#title").append(product.item_name);
+            $("#content").append("manufacturer_name: " + product.manufacturer_name);
+            $("#content").append("manufacture_country: " + product.manufacture_country);
             // $('#data-table').filterTable('#search');
             $("#page").show();
 
