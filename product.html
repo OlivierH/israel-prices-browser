@@ -46,8 +46,8 @@
 
             $.when(product_info_promise, prices_promise).done((product, prices) => {
                 debugger;
-                showProduct(product);
-                showPrices(prices);
+                showProduct(product[0]);
+                showPrices(prices[0]);
             });
         });
 
