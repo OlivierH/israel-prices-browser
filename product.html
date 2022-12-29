@@ -26,6 +26,9 @@
             $("#page").show();
 
         }
+        function showPrices(prices) {
+
+        }
         $(document).ready(() => {
             const query = window.location.href;
             var url = new URL(query);
@@ -38,8 +41,13 @@
             }
 
             const data_url = 'https://oracle.hofman.quest/files/';
-            $.get(data_url + 'products/' + filename + ".json").then((product) => {
+            let product_info_promise = $.get(data_url + 'products/' + filename + ".json")
+            let prices_promise = $.get(data_url + 'prices_per_product/' + filename + ".csv")
+
+            $.when(product_info_promise, prices_promise).done((product, prices) => {
+                debugger;
                 showProduct(product);
+                showPrices(prices);
             });
         });
 
